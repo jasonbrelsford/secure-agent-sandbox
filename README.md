@@ -6,7 +6,7 @@ This repository directly addresses the engineering bottlenecks faced by frontier
 
 ---
 
-## 🏛️ System Architecture
+## System Architecture
 
 The suite is divided into two primary modules:
 1. **The Hardened Execution Sandbox (`orchestrator.py`)**: A defense-in-depth orchestration layer utilizing the Docker SDK to run arbitrary code under strict, hyper-hardened security constraints.
@@ -41,15 +41,15 @@ The suite is divided into two primary modules:
 
 ---
 
-## 🔒 Module 1: Hardened Code Sandbox (`orchestrator.py`)
+## Module 1: Hardened Code Sandbox (`orchestrator.py`)
 
 To execute raw, untrusted Python payloads safely, the orchestrator implements a **defense-in-depth model** that locks down containers at the kernel level:
 
-*   **Total Network Blackout**: Containers are configured with `network_mode="none"`. This strictly blocks socket-level connections, preventing LLMs from exfiltrating system data, executing remote access exploits, or scanning local home networks.
-*   **Kernel-Level Capability Stripping**: Drops all system capabilities via `cap_drop=["ALL"]`. This blocks lower-level system operations, making privilege escalation practically impossible.
-*   **Unprivileged Non-Root Execution**: Runs under the UID `1000:1000` instead of the standard container `root`.
-*   **Strict Read-Only Filesystem**: The container root filesystem is entirely read-only. A transient, isolated `/tmp` workspace is provided as a writable directory for standard input/output generation, ensuring no permanent modifications can be made to the base system.
-*   **Aggressive Host-Side Timeout Watcher**: If the agent's code enters an infinite loop, a dedicated background loop on the host machine counts down (default: `5.0s`) and fires an aggressive `SIGKILL` directly through the Docker daemon, ensuring host system stability.
+   **Total Network Blackout**: Containers are configured with `network_mode="none"`. This strictly blocks socket-level connections, preventing LLMs from exfiltrating system data, executing remote access exploits, or scanning local home networks.
+   **Kernel-Level Capability Stripping**: Drops all system capabilities via `cap_drop=["ALL"]`. This blocks lower-level system operations, making privilege escalation practically impossible.
+   **Unprivileged Non-Root Execution**: Runs under the UID `1000:1000` instead of the standard container `root`.
+   **Strict Read-Only Filesystem**: The container root filesystem is entirely read-only. A transient, isolated `/tmp` workspace is provided as a writable directory for standard input/output generation, ensuring no permanent modifications can be made to the base system.
+   **Aggressive Host-Side Timeout Watcher**: If the agent's code enters an infinite loop, a dedicated background loop on the host machine counts down (default: `5.0s`) and fires an aggressive `SIGKILL` directly through the Docker daemon, ensuring host system stability.
 
 ---
 
