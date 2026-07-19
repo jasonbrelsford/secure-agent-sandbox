@@ -53,7 +53,7 @@ To execute raw, untrusted Python payloads safely, the orchestrator implements a 
 
 ---
 
-## 🛠️ Module 2: DevOps Evaluation Harness (`devops_eval.py`)
+## Module 2: DevOps Evaluation Harness (`devops_eval.py`)
 
 A primary duty of evaluation research engineers is creating environments that accurately measure model capabilities. This harness implements a robust, multi-stage evaluation loop that simulates a real production engineering challenge:
 
@@ -110,7 +110,7 @@ By encoding the payloads into Base64, we strip away all problematic quotes, semi
 
 ---
 
-## 📊 Observability Layer
+## Observability Layer
 
 Both orchestrators utilize Python’s structured `logging` library configured at the `INFO` level. Instead of printing massive, unformatted text blocks to console, the system splits stdout/stderr streams and logs **each individual terminal line** with localized timestamps:
 
@@ -125,7 +125,7 @@ Both orchestrators utilize Python’s structured `logging` library configured at
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 *   [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
