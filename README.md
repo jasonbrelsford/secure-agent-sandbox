@@ -108,6 +108,17 @@ res_service = self.container.exec_run(write_service_cmd)
 
 By encoding the payloads into Base64, we strip away all problematic quotes, semicolons, and special shell operators on the host. The container receives a flat, secure string, pipes it to the native command-line decoder `base64 -d`, and reconstructs the target file flawlessly on disk.
 
+Hardened Agentic Sandboxing: Engineered a secure Python Docker orchestration layer to run untrusted agentic code under strict resource constraints (128MB RAM, 0.5 CPU limits)
+. Implemented security boundaries including dropping all kernel privileges (cap_drop=["ALL"]), zero network egress (network_mode="none"), non-root execution (user="1000:1000"), and strict read-only root filesystems to prevent container escape exploits.
+Asynchronous Chaos Engine: Designed an asynchronous, multi-threaded "Chaos Monkey" framework to evaluate agent resilience mid-trajectory
+. Engineered deterministic host-level interruptions including permission drift (chmod 400), background process eviction (pkill), and write-buffer starvation (dd disk bloat) to measure model self-healing capabilities
+.
+Automated Evaluation & Reward Modeling: Constructed a multi-container mock microservices tree (Frontend Gateway, Backend API, Database) containing dynamic bug vectors to serve as an agent capability evaluation environment
+. Programmed an independent "Verifier" (Reward Model) that grades agent repairs using multi-layered state validations (configuration syntax parsing, process checks, and socket connection requests)
+.
+High-Fidelity Telemetry Portal: Built a real-time web console using Streamlit to monitor running containers, display state-aware topological ASCII routing maps, and stream unified stdout/stderr logs. Designed a secure Server-Side Rendering (SSR) HTTP scraping pipeline on the host to bypass browser iframe CORS, mixed-content, and localhost privacy blocks (like Brave Shields), providing bulletproof visual validation.
+Robust Data Engineering: Solved string/quote boundary issues when deploying multi-line Python scripts across the host/container interface by developing an ASCII-safe Base64 deployment pipeline, ensuring 100% quoting immunity.
+
 ---
 
 ## Observability Layer
